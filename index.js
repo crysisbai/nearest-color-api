@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
-app.post('/', function(request, response) {
+app.post('/nearest-color', function(request, response) {
 
   ntc.init();
   console.log(ntc.name(request.body.color));      // your JSON
@@ -15,7 +15,7 @@ app.post('/', function(request, response) {
 
 
 app.listen(PORT);
-
+console.log("Server running on port " + PORT + "/nearest-color");
 
 var ntc = {
 
