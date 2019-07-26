@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 app.post('/nearest-color', function(request, response) {
-
   ntc.init();
   console.log(ntc.name(request.body.color));      // your JSON
   response.send(ntc.name(request.body.color));    // echo the result back
@@ -61,8 +60,13 @@ var ntc = {
         cl = i;
       }
     }
-
-    return (cl < 0 ? ["#000000", "Invalid Color: " + color, false] : ["#" + ntc.names[cl][0], ntc.names[cl][1], false]);
+    let jsonToReturn = (cl < 0 ? ["#000000", "Invalid Color: " + color, false] : ["#" + ntc.names[cl][0], ntc.names[cl][1], false]);;
+    if (cl < 0) {
+      jsonToReturn = '{"color": "' + color + '"}';
+    } else {
+      jsonToReturn = '{"color": "' + ntc.names[cl][1] + '"}';
+    }
+    return jsonToReturn;
   },
 
   // adopted from: Farbtastic 1.2
